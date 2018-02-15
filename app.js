@@ -5,6 +5,11 @@ var logger = require("morgan");
 var cookieParser = require("cookie-parser");
 var bodyParser = require("body-parser");
 
+// Db middleware
+require("./lib/connectMongoose");
+// Product models
+require("./models/Product");
+
 var app = express();
 
 // view engine setup
@@ -22,9 +27,6 @@ app.use(express.static(path.join(__dirname, "public")));
 // Middleware de mi aplicación web
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
-
-// Db middleware
-require("./lib/connectMongoose");
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
