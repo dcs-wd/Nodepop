@@ -1,28 +1,31 @@
-var express = require("express");
-var path = require("path");
-var favicon = require("serve-favicon");
-var logger = require("morgan");
-var cookieParser = require("cookie-parser");
-var bodyParser = require("body-parser");
+"use strict";
+
+const express = require("express");
+const path = require("path");
+const favicon = require("serve-favicon");
+const logger = require("morgan");
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
 
 // Db middleware
 require("./lib/connectMongoose");
-// Product models
+// Cargamos las definiciones de todos nuestros modelos
 require("./models/Product");
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-// uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+
+// Global Template variables
+app.locals.title = "NodePop";
 
 // Middleware de mi aplicación web
 app.use("/", require("./routes/index"));
@@ -33,7 +36,7 @@ app.use("/apiv1/products", require("./routes/apiv1/products"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error("Not Found");
+  const err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
@@ -47,7 +50,9 @@ app.use(function(err, req, res, next) {
     err.message = `Not valid - ${errInfo.param} ${errInfo.msg}`;
   }
 
-  res.status(err.status || 500);
+  // establezco el status a la respuesta
+  err.status = err.status || 500;
+  res.status(err.status);
 
   // si es una petición de API, respondemos con JSON
   if (isAPI(req)) {
@@ -55,7 +60,11 @@ app.use(function(err, req, res, next) {
     return;
   }
 
-  // Respondo con una página de error
+  // Respondo con un JSON si la petición viene de la API
+  if (isAPI(req)) {
+    res.json({ success: false, error: err.message });
+    return;
+  }
 
   // set locals, only providing error in development
   res.locals.message = err.message;
