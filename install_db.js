@@ -7,14 +7,14 @@ const async = require("async");
 const db = require("./lib/connectMongoose");
 
 // Cargamos las definiciones de todos nuestros modelos
-const Anuncio = require("./models/Anuncio");
+const Producto = require("./models/Product");
 
 db.once("open", async function() {
   try {
     const answer = await askUser("Are you sure you want to empty DB? (no) ");
     if (answer.toLowerCase() === "yes") {
       // Inicializar nuestros modelos
-      await initAnuncios();
+      await initProductos();
     } else {
       console.log("DB install aborted!");
     }
@@ -38,16 +38,16 @@ function askUser(question) {
   });
 }
 
-async function initAnuncios() {
+async function initProdctos() {
   await Anuncio.remove({});
-  console.log("Anuncios borrados.");
+  console.log("Prodctos borrados.");
 
-  // Cargar anuncios.json
-  const fichero = "./anuncios.json";
+  // Cargar prodctos.json
+  const fichero = "./prodctos.json";
   console.log("Cargando " + fichero + "...");
 
   const numLoaded = await Anuncio.cargaJson(fichero);
-  console.log(`Se han cargado ${numLoaded} anuncios.`);
+  console.log(`Se han cargado ${numLoaded} prodctos.`);
 
   return numLoaded;
 }

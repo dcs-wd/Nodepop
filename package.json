@@ -10,12 +10,13 @@
   "dependencies": {
     "apidoc": "^0.17.6",
     "apidoc-markdown": "^0.2.0",
+    "async": "^1.4.2",
     "body-parser": "~1.18.2",
     "cookie-parser": "~1.4.3",
     "cross-env": "^5.1.3",
     "debug": "~2.6.9",
     "express": "~4.15.5",
-    "jade": "~1.11.0",
+    "ejs": "~2.3.3",
     "mongoose": "^5.0.5",
     "morgan": "~1.9.0",
     "serve-favicon": "~2.4.5"
@@ -23,8 +24,7 @@
   "apidoc": {
     "name": "Nodepop",
     "version": "0.0.0 ",
-    "description":
-      "Practica fundamentos Nodejs con MongoDB por Daniel Castillo",
+    "description": "Practica fundamentos Nodejs con MongoDB por Daniel Castillo",
     "title": "API - Nodepop",
     "url": "localhost/apiv1/products",
     "template": {
