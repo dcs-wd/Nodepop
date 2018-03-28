@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "cross-env DEBUG=nodeapi:* nodemon ./bin/www"
+    "dev": "cross-env DEBUG=nodeapi:* nodemon ./bin/www",
+    "installDB": "node install_db.js"
   },
   "dependencies": {
     "apidoc": "^0.17.6",
@@ -22,7 +23,8 @@
   "apidoc": {
     "name": "Nodepop",
     "version": "0.0.0 ",
-    "description": "Practica fundamentos Nodejs con MongoDB por Daniel Castillo",
+    "description":
+      "Practica fundamentos Nodejs con MongoDB por Daniel Castillo",
     "title": "API - Nodepop",
     "url": "localhost/apiv1/products",
     "template": {

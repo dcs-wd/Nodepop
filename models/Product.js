@@ -5,9 +5,10 @@ const mongoose = require("mongoose");
 // primero definimos un esquema
 const productSchema = mongoose.Schema({
   name: { type: String, index: true },
-  state: Boolean,
-  price: Number,
-  tags: { type: String }
+  state: { type: Boolean, index: true },
+  price: { type: Number, index: true },
+  picture: String,
+  tags: { type: [String], index: true }
 });
 
 // creamos un método estático (del modelo)
